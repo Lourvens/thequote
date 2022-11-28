@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;900&family=Poppins:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.outline-header {
+  @apply text-white font-outlined font-black tracking-widest;
+}
+
+:root {
+  --cover-gradient-from: 0deg;
+}
+@media screen and (min-width: 1024px) {
+  :root {
+    --cover-gradient-from: 90deg;
+  }
+}
+@layer base {
+  body {
+    @apply font-body bg-slate-50;
+  }
+}
+@layer components {
+  .btn__icon {
+  @apply py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border
+     font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50
+     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white 
+     focus:ring-blue-600 transition-all;
+
+  }
+}
