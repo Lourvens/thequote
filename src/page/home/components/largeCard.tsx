@@ -15,7 +15,6 @@ function LargeCard() {
   const id = useId();
   const { isFetching, data } = useQuery(["random-quote", id], getRandomQuote);
 
-
   const styles = {
     btn: "text-xs py-1 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent bg-teal-500 bg-opacity-5 text-teal-700 hover:bg-teal-100 focus:outline-none focus:ring-1 focus:ring-teal-600 focus:ring-offset-2 transition-all",
     btnText: "lg:hidden",
@@ -23,6 +22,28 @@ function LargeCard() {
       "w-full flex gap-2 items-center py-1 capitalize text-slate-500 py-2 px-4 hover:bg-slate-100 focus:bg-slate-200",
   };
 
+  const twitterShare = () => {
+    const url = new URL("https://twitter.com/intent/tweet");
+    const content = `${data?.content} \n~${data?.author} \n`;
+    url.searchParams.append("text", content);
+    url.searchParams.append(
+      "hashtags",
+      `quotes,${data?.tags.join(",").replace("-", "")}`
+    );
+    return url.href;
+  };
+  const socialShare = (value: "fa" | "in") => {
+    const link =
+      value == "fa"
+        ? "https://www.facebook.com/sharer/sharer.php"
+        : "https://www.linkedin.com/shareArticle?mini=true&";
+    const url = new URL(link);
+    url.searchParams.append(
+      value == "fa" ? "u" : "url",
+      "http://thequote.vercel.app"
+    );
+    return url.href;
+  };
   const copyFromCard = () => {
     let text = `${data?.content} \n ~${data?.author} \n from: the quote-app`;
     copy(text).then(() => {
@@ -84,18 +105,33 @@ function LargeCard() {
               <span className={styles.btnText}>share</span>
             </button>
             <div className="bg-white rounded-lg overflow-hidden hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-36 hidden border border-slate-400 z-10 shadow-md">
-              <button type="button" className={styles.dropDownItem}>
+              <a
+                type="button"
+                className={styles.dropDownItem}
+                href={twitterShare()}
+                target="_blank"
+              >
                 <CiTwitter />
                 twitter
-              </button>
-              <button type="button" className={styles.dropDownItem}>
+              </a>
+              <a
+                href={socialShare("in")}
+                type="button"
+                className={styles.dropDownItem}
+                target="_blank"
+              >
                 <CiLinkedin />
                 linkedin
-              </button>
-              <button type="button" className={styles.dropDownItem}>
+              </a>
+              <a
+                href={socialShare("fa")}
+                target="_blank"
+                type="button"
+                className={styles.dropDownItem}
+              >
                 <CiFacebook />
                 facebook
-              </button>
+              </a>
             </div>
           </div>
         </div>

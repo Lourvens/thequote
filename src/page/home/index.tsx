@@ -3,9 +3,8 @@ import Header from "../../layouts/header";
 import LargeCard from "./components/largeCard";
 import { ToastContainer } from "react-toastify";
 import { RiDoubleQuotesR } from "react-icons/ri";
-import { GoSettings } from "react-icons/go";
 import { TfiReload } from "react-icons/tfi";
-import FilterModal from "./components/filterModal";
+import { RiHeartsFill } from "react-icons/ri";
 
 function HomePage() {
   const [cardsKey, setCardKey] = useState(1);
@@ -20,12 +19,6 @@ function HomePage() {
           <h1 className="flex gap-2 text-lg capitalize">
             quotes of the day <RiDoubleQuotesR />
           </h1>
-          <button
-            className="text-slate-200 border-2 border-slate-300 bg-slate-500 rounded-full p-2 "
-            data-hs-overlay="#hs-modal-filter"
-          >
-            <GoSettings size={20} />
-          </button>
         </div>
       </div>
       <div className="flex flex-wrap gap-x-2 gap-y-6 my-4 overflow-hidden pb-4 justify-between">
@@ -45,7 +38,15 @@ function HomePage() {
           <span>Reload for more</span>
         </button>
       </div>
-      <FilterModal />
+      <footer className="mt-10 flex justify-center items-center gap-2 text-slate-500">
+        Made with <RiHeartsFill className="text-xl" /> by
+        <a
+          href="https://lourvens.vercel.app"
+          className="underline capitalize text-teal-700 font-medium"
+        >
+          luxamar lourvens
+        </a>
+      </footer>
       <ToastContainer limit={1} />
     </div>
   );

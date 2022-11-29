@@ -11,9 +11,12 @@ import RouterGuard from "./router-guard";
 
 function App() {
   const [authState, setAuth] = useState<AuthConfig>(initialState);
+
+  const loginAsUnknownUsr = () => {
+    setAuth({ isAuthentified: true, user: null });
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebase_auth, (currentuser) => {
-      // window.alert("connected " + (!!currentuser ? "yes" : "no"));
       if (currentuser) {
         setAuth({ isAuthentified: true, user: currentuser });
       } else {
@@ -30,7 +33,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index element={<RouterGuard element={<HomePage />} />} />
-            <Route path="/auth" element={<AuthPage />} />
+            <Route
+              path="/auth"
+              element={<AuthPage onSkip={loginAsUnknownUsr} />}
+            />
             <Route path="*" element={<Nomatch />} />
           </Routes>
         </BrowserRouter>

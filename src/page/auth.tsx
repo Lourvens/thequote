@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { MdFacebook } from "react-icons/md";
-import { AiFillTwitterCircle } from "react-icons/ai";
+// import { MdFacebook } from "react-icons/md";
+// import { AiFillTwitterCircle } from "react-icons/ai";
 
 import cover from "../assets/cover_auth.jpg";
 import useLogin from "../firebase/loginSetup";
@@ -9,7 +9,7 @@ import { getRedirectResult } from "firebase/auth";
 import { firebase_auth } from "../firebase/clientApp";
 import { useNavigate } from "react-router-dom";
 
-function AuthPage() {
+function AuthPage({ onSkip }: IProp) {
   const handleLogin = useLogin();
   const navigate = useNavigate();
 
@@ -19,7 +19,10 @@ function AuthPage() {
       if (res) navigate("/");
     })();
   }, []);
-
+  const handleSkip = () => {
+    onSkip();
+    navigate("/");
+  };
   return (
     <main className="h-[100vh] relative">
       <div className="h-full w-full absolute">
@@ -50,9 +53,16 @@ function AuthPage() {
               <FcGoogle className="w-6 h-auto" />
               Signup with google
             </button>
-            <div className="text-center text-white">or connect with</div>
+            <div className="text-center text-white">or</div>
+            <button
+              type="button"
+              className="btn__icon rounded-full text-white bg-transparent border-2 hover:bg-slate-100 hover:bg-opacity-10 focus:ring-0"
+              onClick={handleSkip}
+            >
+              skip
+            </button>
             <div className="flex justify-between">
-              <button
+              {/* <button
                 type="button"
                 className="btn__icon rounded-full focus:ring-[#3b5998]"
               >
@@ -66,7 +76,7 @@ function AuthPage() {
               >
                 <AiFillTwitterCircle className="w-6 h-auto" color="#00acee" />
                 with twitter
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -76,3 +86,7 @@ function AuthPage() {
 }
 
 export default AuthPage;
+
+interface IProp {
+  onSkip: () => void;
+}
