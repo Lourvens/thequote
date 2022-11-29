@@ -10,6 +10,7 @@ const clientCredential = {
   appId: import.meta.env.VITE_FIREBASE_APPID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENTID,
 };
+console.log(import.meta.env.VITE_FIREBASE_API_KEY);
 
 if (!getApps().length) {
   initializeApp(clientCredential);
